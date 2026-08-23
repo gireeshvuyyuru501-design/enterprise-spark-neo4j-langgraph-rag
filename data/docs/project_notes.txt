@@ -1,0 +1,6 @@
+Enterprise GraphRAG Project Notes
+
+The system uses FastAPI as the API layer and Streamlit as a lightweight user interface.
+Hybrid retrieval combines Chroma vector search with Neo4j graph queries.
+The initial Spark ETL reads employee and project CSV data, performs transformations, writes Parquet output,
+and loads Employee, Project, and Skill nodes plus WORKS_ON and HAS_SKILL relationships into Neo4j.

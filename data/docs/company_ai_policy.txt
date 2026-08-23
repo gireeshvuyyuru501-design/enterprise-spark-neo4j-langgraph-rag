@@ -1,0 +1,6 @@
+Enterprise AI Policy
+
+The Enterprise GraphRAG platform combines semantic document retrieval with knowledge-graph retrieval.
+Production AI services must expose health endpoints, structured logging, traceable sources, and access controls.
+PySpark is used for large-scale data preparation and Neo4j stores relationships between employees, projects, and skills.
+LangGraph orchestrates retrieval and answer-generation nodes.

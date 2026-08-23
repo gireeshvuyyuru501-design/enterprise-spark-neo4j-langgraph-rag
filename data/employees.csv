@@ -1,0 +1,6 @@
+employee_id,name,department,skills
+1,Asha Reddy,AI Engineering,Python|Spark|LangGraph|RAG
+2,Ravi Kumar,Data Engineering,PySpark|Kafka|SQL|Neo4j
+3,Maya Shah,Platform Engineering,FastAPI|Docker|Kubernetes|AWS
+4,John Lee,AI Research,LLM|RAG|Neo4j|Python
+5,Neha Patel,Analytics,Spark|SQL|Databricks|Python

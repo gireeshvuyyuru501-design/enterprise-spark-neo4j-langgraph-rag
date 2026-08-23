@@ -1,0 +1,60 @@
+ENTERPRISE SPARK + NEO4J + LANGGRAPH RAG
+WINDOWS POWERSHELL - ONE SHOT
+
+cd C:\AI\enterprise_spark_neo4j_langgraph_rag
+
+python -m venv .venv
+Set-ExecutionPolicy -Scope Process RemoteSigned
+.\.venv\Scripts\Activate.ps1
+
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+
+Copy-Item .env.example .env
+notepad .env
+
+docker compose up -d neo4j
+docker ps
+
+# Neo4j Browser
+# http://localhost:7474
+# username: neo4j
+# password: password12345
+
+java -version
+
+python scripts\spark_etl_to_neo4j.py
+
+# TERMINAL 1 - BACKEND
+python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+
+# Swagger
+# http://127.0.0.1:8000/docs
+
+# In a new PowerShell terminal after backend is running:
+Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/ingest
+
+$body = @{
+  question = "Which employees know Spark and what projects are they working on?"
+  top_k = 4
+} | ConvertTo-Json
+
+Invoke-RestMethod `
+  -Method Post `
+  -Uri http://127.0.0.1:8000/ask `
+  -ContentType "application/json" `
+  -Body $body
+
+# TERMINAL 2 - FRONTEND
+cd C:\AI\enterprise_spark_neo4j_langgraph_rag
+.\.venv\Scripts\Activate.ps1
+python -m streamlit run frontend\streamlit_app.py
+
+# Streamlit
+# http://localhost:8501
+
+# TESTS
+pytest -q
+
+# STOP NEO4J
+docker compose down
